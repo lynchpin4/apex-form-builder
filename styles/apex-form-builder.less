@@ -1,0 +1,149 @@
+// The ui-variables file is provided by base themes provided by Atom.
+//
+// See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
+// for a full listing of what's available.
+@import "ui-variables";
+
+.apex-form-pane
+{
+  display: -webkit-flex;
+  height: 100%;
+
+  * { -webkit-user-select: none; }
+}
+
+atom-panel.ui-resizable .inset-panel
+{
+  top: 0px!important;
+  left: 0px!important;
+  right: 0px!important;
+  bottom: 0px!important;
+  position: absolute!important;
+}
+
+.apex-form-toolbox
+{
+  max-width: 275px;
+  display: block;
+}
+
+atom-panel.form-widget { min-width: 100px; min-height: 100px; }
+
+.toolbox-panel {
+  height: 100%;
+  
+  ul { 
+    list-style: none;
+    margin: 0;
+    position: relative;
+    padding: 0px; 
+  }
+  
+  ul li { 
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    transition: color 1s ease-in!important;
+    
+    :hover {
+      color: #228DFF!important; 
+      -webkit-animation: neon2 1.5s ease-in-out infinite alternate;
+      -moz-animation: neon2 1.5s ease-in-out infinite alternate;
+      animation: neon2 1.5s ease-in-out infinite alternate;
+    }
+  }
+}
+
+.apex-form-pane atom-panel
+{
+  /*margin: 15px;*/
+}
+
+.apex-form-workspace {
+  position: relative;
+  display: -webkit-flex;
+  -webkit-flex: 1;
+  -webkit-flex-flow: column;
+  
+  background-color: rgba(221, 216, 216, 0.17)!important;
+  margin: 0px;
+  padding: 15px;
+}
+
+.apex-form-workspace atom-panel
+{
+  margin-left: 15px;
+}
+
+atom-panel .inset-panel
+{
+  min-width: 240px;
+}
+
+atom-panel
+{
+  .close-icon {
+    right: 10px;
+  }
+  .close-icon {
+    right: 0;
+    z-index: 3;
+    text-align: right;
+    line-height: 26px;
+  }
+  .close-icon {
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    cursor: default;
+  }
+  
+  .close-icon:before {
+    font-family: 'Octicons Regular';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    text-decoration: none;
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+    content: "\f081";
+  }
+}
+
+@-webkit-keyframes neon2 {
+  from {
+    text-shadow: 0 0 5px #fff,
+               0 0 10px #fff,
+               0 0 15px #fff,
+               0 0 20px #228DFF,
+               0 0 35px #228DFF,
+               0 0 40px #228DFF,
+               0 0 50px #228DFF,
+               0 0 75px #228DFF;
+  }
+  to {
+    text-shadow: 0 0 10px #fff,
+               0 0 20px  #fff,
+               0 0 30px  #fff,
+               0 0 40px  #228DFF,
+               0 0 70px  #228DFF,
+               0 0 80px  #228DFF,
+               0 0 100px #228DFF,
+               0 0 150px #228DFF;
+  }
+}
+
+.apex-form-pane {
+  .selected {
+    outline:none;
+    border-color:#9ecaed;
+    box-shadow:0 0 24px #9ecaed;
+    color:#228DFF;
+    -webkit-animation: neon2 1s ease-in-out infinite alternate;
+    -moz-animation: neon2 1s ease-in-out infinite alternate;
+    animation: neon2 1s ease-in-out infinite alternate;
+  }
+}

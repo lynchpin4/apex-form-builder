@@ -1,0 +1,19 @@
+{
+  "name": "apex-form-builder",
+  "main": "./lib/apex-form-builder",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "repository": "https://github.com/atom/apex-form-builder",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "emissary": "^1.3.1",
+    "interact.js": "^1.2.2",
+    "mixto": "^1.0.0",
+    "property-accessors": "^1.1.0",
+    "theorist": "^1.0.2",
+    "underscore-plus": "^1.6.6"
+  }
+}

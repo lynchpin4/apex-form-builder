@@ -1,0 +1,14 @@
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'Form Builder'
+      'submenu': [
+        {
+          'label': 'New Form'
+          'command': 'apex-form-builder:create'
+        }
+      ]
+    ]
+  }
+]
