@@ -27,31 +27,49 @@ atom-panel.ui-resizable .inset-panel
   display: block;
 }
 
+atom-panel.form-widget .inset-panel
+{
+  position: relative;
+}
+
+.hoverValue
+{
+  position: absolute;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.50);
+  color: #fff;
+}
+
 atom-panel.form-widget { min-width: 100px; min-height: 100px; }
 
 .toolbox-panel {
   height: 100%;
-  
-  ul { 
+
+  ul {
     list-style: none;
     margin: 0;
     position: relative;
-    padding: 0px; 
+    padding: 0px;
   }
-  
-  ul li { 
+
+  ul li {
     display: inline-block;
     width: 32px;
     height: 32px;
     transition: color 1s ease-in!important;
-    
+
     :hover {
-      color: #228DFF!important; 
+      color: #228DFF!important;
       -webkit-animation: neon2 1.5s ease-in-out infinite alternate;
       -moz-animation: neon2 1.5s ease-in-out infinite alternate;
       animation: neon2 1.5s ease-in-out infinite alternate;
     }
   }
+}
+
+.toolbox-button
+{
+  z-index: 9999;
 }
 
 .apex-form-pane atom-panel
@@ -64,7 +82,7 @@ atom-panel.form-widget { min-width: 100px; min-height: 100px; }
   display: -webkit-flex;
   -webkit-flex: 1;
   -webkit-flex-flow: column;
-  
+
   background-color: rgba(221, 216, 216, 0.17)!important;
   margin: 0px;
   padding: 15px;
@@ -97,7 +115,7 @@ atom-panel
     right: 10px;
     cursor: default;
   }
-  
+
   .close-icon:before {
     font-family: 'Octicons Regular';
     font-weight: normal;

@@ -64,28 +64,33 @@ BUILTIN_WIDGETS = {
 module.exports =
 class Apex.Form.ToolboxView extends View
   Emitter.includeInto @
-  
+
   @content: ->
     @tag 'atom-panel', class: 'toolbox-panel', outlet: 'toolboxPanel', =>
       @div class: 'inset-panel', =>
-        @div class: 'panel-heading', => 
+        @div class: 'panel-heading', =>
           @span 'Toolbox'
         @div class: 'panel-body padded', outlet: 'toolbox'
-    
+
   initialize: ->
     @toolbox.html '' # clear if we haven't done so already
     items = $ document.createElement('ul')
-    
+
     for k,v of BUILTIN_WIDGETS
       el = $ document.createElement('li')
       el.attr 'id', 'toolbox_'+k
       el.attr 'data-widget', k
-      el.html "<i class='#{v.icon}' alt='${k}' />"
+      el.addClass 'toolbox-button'
+      el.html "<i class='toolbox-icon #{v.icon}' alt='${k}' />"
+      el.draggable(
+        opacity: 0.8
+        helper: "clone"
+      )
       atom.tooltips.add el, {title: v.tip}
       items.append el
-      
+
     @toolbox.append items
-    
+
   # Returns an object that can be retrieved when package is activated
   serialize: ->
 
@@ -95,6 +100,6 @@ class Apex.Form.ToolboxView extends View
 
   getElement: ->
     @element
-  
+
   getViewClass: -> Apex.Form.ToolboxView
   getView:      -> @
