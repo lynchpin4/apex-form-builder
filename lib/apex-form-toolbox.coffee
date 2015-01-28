@@ -2,11 +2,17 @@
 {CompositeDisposable, $, View} = require 'atom'
 path = require 'path'
 
+Widgets = require './widgets/widgets'
+
 window.Apex ?= {}
 Apex.Form ?= {}
 
 ###
-* Form Properties Widget
+* Form Toolbox Scripts
+* ---------------------
+* 
+* Slightly oversimplifies the logic of previewing a control being dropped onto the form
+
 ###
 
 # icons
@@ -38,8 +44,8 @@ Apex.Form ?= {}
 # .flaticon-design24 / left aligned text, right aligned content layout
 
 BUILTIN_WIDGETS = {
-  'button': {icon:'flaticon-ok6', tip: 'Simple and uniform button.'},
-  'textbox': {icon:'flaticon-textbox', tip: 'Simple textbox'},
+  'button': {icon:'flaticon-ok6', tip: 'Simple and uniform button.', widget: Widgets.Button},
+  'textbox': {icon:'flaticon-textbox', tip: 'Simple textbox', widget: Widgets.Input},
   'numeric': {icon:'flaticon-numbers8', tip: 'Numeric only input'},
   'checkbox': {icon:'flaticon-check30', tip: 'Common checkbox'},
   'radio': {icon:'flaticon-radio51', tip: 'Regular radio button'},
@@ -82,6 +88,9 @@ class Apex.Form.ToolboxView extends View
       el.attr 'data-widget', k
       el.addClass 'toolbox-button'
       el.html "<i class='toolbox-icon #{v.icon}' alt='${k}' />"
+      if not el.widget
+        el.css
+          opacity: 0.5
       el.draggable(
         opacity: 0.8
         helper: "clone"
