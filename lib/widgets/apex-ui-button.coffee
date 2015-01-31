@@ -7,24 +7,31 @@ Apex.Form ?= {}
 ###
     Common UI Button (Core)
     -------------------
-    
+
     The pushbutton. Always useful.
 ###
 
-module.exports = 
+module.exports =
 class Apex.Form.Button extends Apex.Form.Widget
-  
+
   # perform initialization logic, subclasses should override
-  initialize: ->
-    super
-  
+  initialize: (params) ->
+    @title = 'Button'
+    console.log 'Button initialized'
+
   # constructs a version of the view for designer use (with tools, built-in focus logic)
   designer: ->
     @button = $('<button/>')
-  
+    @button.text @title
+    @append @button
+
   # construct the regular view element onto @body
   view: ->
     @button = $('<button/>')
+    @button.text @title
     @button.click => @emit 'click'
     @button.dblclick => @emit 'dblclick'
-    
+    @append @button
+
+Apex.widgetResolver.add 'button', Apex.Form.Button
+console.log('resolver added button')

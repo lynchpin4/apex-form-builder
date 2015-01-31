@@ -21,6 +21,17 @@ atom-panel.ui-resizable .inset-panel
   position: absolute!important;
 }
 
+.apex-form-widget .panel-body
+{
+  padding: 0px!important;
+  /* flex: 1; */
+  position: absolute!important;
+  top: 33px!important;
+  left: 0px!important;
+  right: 0px!important;
+  bottom: 0px!important;
+}
+
 .apex-form-toolbox
 {
   max-width: 275px;
@@ -30,6 +41,17 @@ atom-panel.ui-resizable .inset-panel
 atom-panel.form-widget .inset-panel
 {
   position: relative;
+}
+
+.apex-widget
+{
+  /* default */
+  position: absolute;
+}
+
+/* Override interactivity on designer */
+.apex-form-pane .apex-widget.selectable * {
+  pointer-events:none;
 }
 
 .hoverValue
@@ -66,6 +88,8 @@ atom-panel.form-widget { min-width: 100px; min-height: 100px; }
     }
   }
 }
+
+.widget-select-mask { display: block; position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; }
 
 .toolbox-button
 {

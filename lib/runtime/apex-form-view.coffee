@@ -28,64 +28,120 @@ class Apex.Form.FormView extends View
           @div class:'close-icon', outlet: 'close'
         @div class: 'panel-body padded', outlet: 'contents'
 
-  initialize: ->
-    @interact = Apex.interact
+  initialize: (params) ->
+    if params.parent
+      @parent = params.parent
+
     @hover = false
+    @widgets = []
+
+    # may be accompanied by a more integrated form runtime, but the first / preferable
+    # option would be to generate view classes in Spacepen, HTML / CSS (LESS)
+    @isDesigner = true
+    @isRuntime = false # not implemented.
+
     Apex.apexCurrentDevForm = @
+
+    # Currently, we always init as designer (though as indicated above this could change)
+    @initDesigner() unless not @isDesigner
 
     # Create root element
     @element.classList.add('apex-form-widget')
 
+    # Viewhost (Apex form builder - Select does the highlight and property view stuff)
     $(@header).dblclick =>
       if @viewHost then @viewHost?.select? @
-
 
     # Todo: update behavior based on state of the model
     @close.click =>
       @destroy()
 
-  over: (ev, ui) ->
-    console.log 'over ev:'
+  initDesigner: ->
+    scope = @
+    @selectFn = ->
+      scope.selectWidget(this)
+    $('.apex-widget.selectable').delegate("click", @selectFn)
+    $('.apex-widget.selectable .widget-select-mask').delegate("click", @selectFn)
+
+  selectWidget: (el) ->
+    console.log 'selecting..'
+    console.dir el
+    if @viewHost then @viewHost?.select? el
+
+  drag: (ev, ui) ->
+    console.log 'drag event: '+ev.type+':'
     console.dir(ev)
-    console.log 'over ui:'
     console.dir(ui)
 
+    @ui = ui
+    @ev = ev
+
+    @objectX = @ui.offset.left - @offset().left
+    @objectY = @ui.offset.top - @offset().top
+
+    if not @interval or @interval = -1
+      @interval = window.setInterval ( => if @hover then @hover.position(@ui.offset.left - @offset().left, @ui.offset.left - @offset().top)), 100
+
+    if @hover
+      @hover.position @objectX, @objectY
+
+    # check by type event type
     if ev.type is 'dropover'
       @createDropover(ev)
 
     if ev.type is 'drop'
       @finishDrop(ev)
 
-  drop: (ev, ui) ->
-    console.log 'drop ev:'
-    console.dir(ev)
-    console.log 'over ui:'
-    console.dir(ui)
-
-  updateText: ->
-    if not @ev then return
-    @hoverX = @ev.offsetX
-    @hoverY = @ev.offsetY
-    $(@hover).css
-      top: Math.abs(@hoverX)+'px'
-      left: Math.abs(@hoverY)+'px'
-    "Hover: x{#{@hoverX}, y#{@hoverY}}"
-
   createDropover: (ev) ->
     @ev = ev
-    if not @hover
-      @hover = Apex.hoverValue.makeValue(@ev.pageX, @ev.pageY, @updateText.bind @, 'atom-panel.ui-resizable .inset-panel')
-    else
-      @hover.show()
+    if @interval
+      window.clearInterval @interval
+      @interval = -1
 
-    @hoverX = ev.offsetX
-    @hoverY = ev.offsetY
+    if not @hover
+      # put the designer widget here
+      #@hover = Apex.hoverValue.makeValue(@ev.pageX, @ev.pageY, @updateText.bind @, 'atom-panel.ui-resizable .inset-panel')
+      name = $(@ui.draggable.context).attr('data-name')
+      if not name or name.length == 0 then name = "widget"
+      type = Apex.widgetResolver.resolve(name)
+      if not type
+        console.log 'undefined widget type: '+name
+        return
+
+      @hover = new type()
+      @hover.preview @
+      #hover.follow $(@ui.draggable.context)
+      #@contents.append @hover
+      # extensive..
+      # Apex.formBuilder.view.workspace.views()[0].form
+
+    if @hover
+      @hover.position @objectX, @objectY
 
   finishDrop: (ev) ->
-    @ev = ev
-    @hoverX = ev.offsetX
-    @hoverY = ev.offsetY
-    @hover.hide()
+    # finish / create
+    newPosX = @ui.offset.left - @offset().left;
+    newPosY = @ui.offset.top - @offset().top;
+
+    if @interval
+      window.clearInterval @interval
+      @interval = -1
+
+    if @hover
+      @hover.position newPosX, newPosY
+
+    # reset hover
+    @hover.remove()
+    @hover = null
+
+    # create new widget
+    name = $(@ui.draggable.context).attr('data-name')
+    if not name or name.length == 0 then name = "widget"
+    type = Apex.widgetResolver.resolve(name)
+    widget = new type()
+    widget.add @
+    widget.position newPosX, newPosY
+    @widgets.push widget
 
   setViewHost: (@viewHost) ->
 
@@ -96,16 +152,12 @@ class Apex.Form.FormView extends View
     $(@element).draggable handle:'.panel-heading', grid: [15, 15]
     $(@element).resizable grid: [15, 15]
 
-    try
-      el = $(@element)
-      el.droppable(
-        drag: @drop.bind @
-        drop: @drop.bind @
-        over: @over.bind @
-      )
-    catch ex
-      console.log 'exception droppable el @ .apex-form-workspace:'
-      console.log ex.stack
+    el = $(@element) #.find '.inset-panel'
+    el.droppable(
+      drag: @drag.bind @
+      drop: @drag.bind @
+      over: @drag.bind @
+    )
 
   # get / set backing model for the view (todo: subscribe to widget events)
   setModel: (@model) ->

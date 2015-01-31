@@ -10,7 +10,7 @@ Apex.Form ?= {}
 ###
 * Form Toolbox Scripts
 * ---------------------
-* 
+*
 * Slightly oversimplifies the logic of previewing a control being dropped onto the form
 
 ###
@@ -44,8 +44,9 @@ Apex.Form ?= {}
 # .flaticon-design24 / left aligned text, right aligned content layout
 
 BUILTIN_WIDGETS = {
-  'button': {icon:'flaticon-ok6', tip: 'Simple and uniform button.', widget: Widgets.Button},
-  'textbox': {icon:'flaticon-textbox', tip: 'Simple textbox', widget: Widgets.Input},
+  #'widget': {name: 'widget', icon:'flaticon-ok6', tip: 'Base Widget (Test)', widget: Widgets.Widget},
+  'button': {name: 'button', icon:'flaticon-ok6', tip: 'Simple and uniform button.', widget: Widgets.Button},
+  'textbox': {name: 'textbox', icon:'flaticon-textbox', tip: 'Simple textbox', widget: Widgets.Input},
   'numeric': {icon:'flaticon-numbers8', tip: 'Numeric only input'},
   'checkbox': {icon:'flaticon-check30', tip: 'Common checkbox'},
   'radio': {icon:'flaticon-radio51', tip: 'Regular radio button'},
@@ -78,7 +79,8 @@ class Apex.Form.ToolboxView extends View
           @span 'Toolbox'
         @div class: 'panel-body padded', outlet: 'toolbox'
 
-  initialize: ->
+  initialize: (params) ->
+    if params.parent then @parent = params.parent
     @toolbox.html '' # clear if we haven't done so already
     items = $ document.createElement('ul')
 
@@ -88,6 +90,7 @@ class Apex.Form.ToolboxView extends View
       el.attr 'data-widget', k
       el.addClass 'toolbox-button'
       el.html "<i class='toolbox-icon #{v.icon}' alt='${k}' />"
+      if v.name then el.attr('data-name', v.name)
       if not el.widget
         el.css
           opacity: 0.5
@@ -109,6 +112,6 @@ class Apex.Form.ToolboxView extends View
 
   getElement: ->
     @element
-
+  setViewHost: (@viewHost) ->
   getViewClass: -> Apex.Form.ToolboxView
   getView:      -> @
