@@ -94,6 +94,7 @@ class Apex.Form.ToolboxView extends View
       if not el.widget
         el.css
           opacity: 0.5
+      window.formBuilderDraggable = el
       el.draggable(
         opacity: 0.8
         helper: "clone"

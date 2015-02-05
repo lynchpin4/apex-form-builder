@@ -21,6 +21,17 @@ atom-panel.ui-resizable .inset-panel
   position: absolute!important;
 }
 
+atom-panel.form-widget-floating {
+  padding: 10px!important;
+  .inset-panel {
+    top: 10px!important;
+    left: 10px!important;
+    right: 10px!important;
+    bottom: 10px!important;
+    position: absolute!important;
+  }
+}
+
 .apex-form-widget .panel-body
 {
   padding: 0px!important;
@@ -30,6 +41,13 @@ atom-panel.ui-resizable .inset-panel
   left: 0px!important;
   right: 0px!important;
   bottom: 0px!important;
+}
+
+.apex-widget.selectable.selected
+{
+  border: 1px dashed rgba(242, 242, 242, 0.8);
+  background-color: rgba(50, 50, 50, 0.82);
+  border-style: dotted;
 }
 
 .apex-form-toolbox
@@ -51,8 +69,10 @@ atom-panel.form-widget .inset-panel
 
 /* Override interactivity on designer */
 .apex-form-pane .apex-widget.selectable * {
-  pointer-events:none;
+  /* pointer-events:none; */
 }
+
+.apex-widget .grow { width: 100%; height: 100%; }
 
 .hoverValue
 {
@@ -115,11 +135,6 @@ atom-panel.form-widget { min-width: 100px; min-height: 100px; }
 .apex-form-workspace atom-panel
 {
   margin-left: 15px;
-}
-
-atom-panel .inset-panel
-{
-  min-width: 240px;
 }
 
 atom-panel

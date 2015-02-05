@@ -45,7 +45,7 @@ module.exports = Apex.Form.Builder =
     Apex.formBuilder = @
 
     # Create the first 1 anyways
-    @createForm()
+    #@createForm()
 
   deactivate: ->
     @subscriptions.dispose()

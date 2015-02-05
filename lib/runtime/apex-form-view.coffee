@@ -48,6 +48,10 @@ class Apex.Form.FormView extends View
     # Create root element
     @element.classList.add('apex-form-widget')
 
+    # floating glass style
+    @element.classList.add('modal')
+    @element.classList.add('form-widget-floating')
+
     # Viewhost (Apex form builder - Select does the highlight and property view stuff)
     $(@header).dblclick =>
       if @viewHost then @viewHost?.select? @
@@ -60,13 +64,24 @@ class Apex.Form.FormView extends View
     scope = @
     @selectFn = ->
       scope.selectWidget(this)
-    $('.apex-widget.selectable').delegate("click", @selectFn)
-    $('.apex-widget.selectable .widget-select-mask').delegate("click", @selectFn)
+    #$('.apex-widget.selectable').delegate("click", @selectFn)
+    #$('.apex-widget.selectable .widget-select-mask').delegate("click", @selectFn)
 
   selectWidget: (el) ->
     console.log 'selecting..'
     console.dir el
     if @viewHost then @viewHost?.select? el
+
+  over: (event, ui) ->
+    window.lastEvent = event
+    window.lastUI = ui
+    $(ui.draggable).draggable( "option", "containment", @contents )
+    $(ui.draggable).draggable({ grid: [5, 5], drag: @drag.bind @ })
+    @drag(event, ui)
+
+  out: (event, ui) ->
+    $(window.formBuilderDraggable).draggable("option", "grid", false)
+    @drag(event, ui)
 
   drag: (ev, ui) ->
     console.log 'drag event: '+ev.type+':'
@@ -79,8 +94,8 @@ class Apex.Form.FormView extends View
     @objectX = @ui.offset.left - @offset().left
     @objectY = @ui.offset.top - @offset().top
 
-    if not @interval or @interval = -1
-      @interval = window.setInterval ( => if @hover then @hover.position(@ui.offset.left - @offset().left, @ui.offset.left - @offset().top)), 100
+  #  if not @interval or @interval = -1
+    #  @interval = window.setInterval ( => if @hover then @hover.position(@ui.offset.left - @offset().left, @ui.offset.left - @offset().top)), 100
 
     if @hover
       @hover.position @objectX, @objectY
@@ -130,9 +145,9 @@ class Apex.Form.FormView extends View
     if @hover
       @hover.position newPosX, newPosY
 
-    # reset hover
-    @hover.remove()
-    @hover = null
+      # reset hover
+      @hover.remove()
+      @hover = null
 
     # create new widget
     name = $(@ui.draggable.context).attr('data-name')
@@ -156,7 +171,8 @@ class Apex.Form.FormView extends View
     el.droppable(
       drag: @drag.bind @
       drop: @drag.bind @
-      over: @drag.bind @
+      over: @over.bind @
+      out: @out.bind @
     )
 
   # get / set backing model for the view (todo: subscribe to widget events)

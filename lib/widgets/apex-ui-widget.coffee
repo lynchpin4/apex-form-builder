@@ -1,6 +1,6 @@
-{Emitter} = require 'emissary'
+# {Emitter} = require 'emissary'
 {CompositeDisposable, $, View} = require 'atom'
-View = View #spacepen
+{Emitter} = require 'event-kit'
 path = require 'path'
 
 window.Apex ?= {}
@@ -45,7 +45,11 @@ Apex.widgetResolver or= new Apex.Form.WidgetResolver()
 module.exports =
 class Apex.Form.Widget extends View
 
-  Emitter.includeInto @
+  widgetType: 'widget'
+  x: 0
+  y: 0
+
+  emitter: new Emitter
 
   @content: ->
     @div class: 'apex-widget selectable'
@@ -57,19 +61,31 @@ class Apex.Form.Widget extends View
     @x = 0
     @y = 0
 
-  # concrete/ class methods...
+  # concrete(ish) / class methods...
+
+  startEditing: ->
+    $(@).resizable()
+    $(@).draggable()
+    $(@).draggable( "option", "containment", @form.contents )
 
   add: (form) ->
     @view()
 
     form.append @
-    if form.isDesigner
-      @append $("<div class='widget-select-mask' />")
-    @emit 'added', form
+    @form = form
+    selecter = $("<div class='widget-select-mask' style='z-index: 999999;' />")
+    @append selecter
+    scope = @
+    selecter.click =>
+      console.log 'selecting: '
+      console.dir(@)
+      @form.selectWidget @
+      scope.startEditing()
+    @emitter.emit 'added', @
 
   preview: (form) ->
     @addClass 'preview'
-    @designer()
+    if @designer then @designer()
     form.append @
     @css
       opacity: 0.5

@@ -14,6 +14,8 @@ Apex.Form ?= {}
 module.exports =
 class Apex.Form.Button extends Apex.Form.Widget
 
+  widgetType: 'button'
+
   # perform initialization logic, subclasses should override
   initialize: (params) ->
     @title = 'Button'
@@ -23,12 +25,14 @@ class Apex.Form.Button extends Apex.Form.Widget
   designer: ->
     @button = $('<button/>')
     @button.text @title
+    @button.addClass 'grow'
     @append @button
 
   # construct the regular view element onto @body
   view: ->
     @button = $('<button/>')
     @button.text @title
+    @button.addClass 'grow'
     @button.click => @emit 'click'
     @button.dblclick => @emit 'dblclick'
     @append @button
