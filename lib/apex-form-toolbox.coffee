@@ -42,29 +42,40 @@ Apex.Form ?= {}
 
 # layouts
 # .flaticon-design24 / left aligned text, right aligned content layout
+#module.exports = {}
+#module.exports.Widget = require './apex-widget'
+#module.exports.Button = require './apex-button'
+#module.exports.Input = require './apex-input'
+#module.exports.TextEditor = require './apex-text-editor'
+#module.exports.TreeView = require './apex-tree-view'
+#module.exports.ListView = require './apex-list-view'
+#module.exports.Label = require './apex-label'
+#module.exports.ButtonGroup = require './apex-button-group'
 
+# many of these can/shud be extended from input (tho it may require some minor modification to produce the right html)
 BUILTIN_WIDGETS = {
   #'widget': {name: 'widget', icon:'flaticon-ok6', tip: 'Base Widget (Test)', widget: Widgets.Widget},
   'button': {name: 'button', icon:'flaticon-ok6', tip: 'Simple and uniform button.', widget: Widgets.Button},
-  'textbox': {name: 'textbox', icon:'flaticon-textbox', tip: 'Simple textbox', widget: Widgets.Input},
-  'numeric': {icon:'flaticon-numbers8', tip: 'Numeric only input'},
-  'checkbox': {icon:'flaticon-check30', tip: 'Common checkbox'},
-  'radio': {icon:'flaticon-radio51', tip: 'Regular radio button'},
-  'radiotext': {icon:'flaticon-radio32', tip: 'Radio button with a label'},
-  'multilinetextbox': {icon:'flaticon-notes9', tip: 'Multiline text input'},
-  'label': {icon:'flaticon-text38', tip: 'Label'},
-  'date': {icon:'flaticon-calendar146', tip: 'Date entry input'},
+  'buttongroup': {name: 'buttongroup', icon:'flaticon-ok6', tip: 'Simple and uniform button.', widget: Widgets.ButtonGroup},
+  'input': {name: 'input', icon:'flaticon-textbox', tip: 'HTML5 Input', widget: Widgets.Input},
+  'numeric': {icon:'flaticon-numbers8', tip: 'Numeric only input'}, # todo
+  'checkbox': {icon:'flaticon-check30', tip: 'Common checkbox'}, # todo
+  'radio': {icon:'flaticon-radio51', tip: 'Regular radio button'}, # todo
+  'radiotext': {icon:'flaticon-radio32', tip: 'Radio button with a label'}, # todo
+  'editor': {name: 'editor', icon:'flaticon-notes9', tip: 'Editor text input', widget: Widgets.TextEditor },
+  'label': {name: 'label', icon:'flaticon-text38', tip: 'Label', widget: Widgets.Label },
+  'date': {icon:'flaticon-calendar146', tip: 'Date entry input'}, # todo
   'datetime': {icon:'flaticon-calendar68', tip: 'Date / Time entry input'},
-  'html': {icon:'flaticon-right173', tip: 'Raw HTML'},
-  'image': {icon:'flaticon-image84', tip: 'Image'},
-  'webview': {icon:'flaticon-browser14', tip: 'Embedded browser / Webview'},
-  'url': {icon:'flaticon-http1', tip: 'URL Entry Box'},
-  'listnumbers': {icon:'flaticon-mini5', tip: 'Numeric List'},
-  'tree': {icon:'flaticon-category2', tip: 'Tree List'},
-  'list': {icon:'flaticon-text146', tip: 'Simple List'},
-  'grid': {icon:'flaticon-show6', tip: 'Grid (Thumbnails)'},
-  'table': {icon:'flaticon-table41', tip: 'Table'},
-  'map': {icon:'flaticon-location35', tip: 'Leaflet Map'},
+  'html': {icon:'flaticon-right173', tip: 'Raw HTML'}, # todo
+  'image': {icon:'flaticon-image84', tip: 'Image'}, # todo, lol
+  'webview': {icon:'flaticon-browser14', tip: 'Embedded browser / Webview'}, # todo both webview / iframe
+  'url': {icon:'flaticon-http1', tip: 'URL Entry Box'}, # todo / input
+  'listnumbers': {icon:'flaticon-mini5', tip: 'Numeric List'}, # todo
+  'treeview': {name: 'treeview', icon:'flaticon-category2', tip: 'Tree View', widget: Widgets.TreeView},
+  'listview': {name: 'listview', icon:'flaticon-text146', tip: 'List View', widget: Widgets.ListView}, # list view, still needs select box
+  'grid': {icon:'flaticon-show6', tip: 'Grid (Thumbnails)'}, # todo
+  'table': {icon:'flaticon-table41', tip: 'Table'}, # todo
+  'map': {icon:'flaticon-location35', tip: 'Leaflet Map'}, # todo
   #'layout1': {icon:'flaticon-design24'},
 }
 

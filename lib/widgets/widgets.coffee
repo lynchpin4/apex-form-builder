@@ -1,4 +1,9 @@
 module.exports = {}
-module.exports.Widget = require './apex-ui-widget'
-module.exports.Button = require './apex-ui-button'
-module.exports.Textbox = require './apex-ui-input'
+module.exports.Widget = require './apex-widget'
+module.exports.Button = require './apex-button'
+module.exports.Input = require './apex-input'
+module.exports.TextEditor = require './apex-text-editor'
+module.exports.TreeView = require './apex-tree-view'
+module.exports.ListView = require './apex-list-view'
+module.exports.Label = require './apex-label'
+module.exports.ButtonGroup = require './apex-button-group'

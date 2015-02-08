@@ -5,21 +5,21 @@ window.Apex ?= {}
 Apex.Form ?= {}
 
 ###
-    Common UI Textbox (Core)
+    HTML5 UI Input (Core)
     -------------------
 
-    The pushbutton. Always useful.
+    HTML5 Text Input (Basic Textbox)
 ###
 
 module.exports =
-class Apex.Form.Textbox extends Apex.Form.Widget
+class Apex.Form.Input extends Apex.Form.Widget
 
-  widgetType: 'textbox'
+  widgetType: 'input'
 
   # perform initialization logic, subclasses should override
   initialize: (params) ->
     @value = 'Textbox'
-    console.log 'Textbox initialized'
+    console.log 'Input Textbox initialized'
 
   # constructs a version of the view for designer use (with tools, built-in focus logic)
   designer: ->
@@ -35,5 +35,5 @@ class Apex.Form.Textbox extends Apex.Form.Widget
     @textbox.val @value
     @append @textbox
 
-Apex.widgetResolver.add 'textbox', Apex.Form.Textbox
-console.log('resolver added button')
+Apex.widgetResolver.add 'input', Apex.Form.Input
+console.log('resolver added input')

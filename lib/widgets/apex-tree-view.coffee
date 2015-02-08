@@ -5,16 +5,16 @@ window.Apex ?= {}
 Apex.Form ?= {}
 
 ###
-    Common UI Button (Core)
+    Tree (Core)
     -------------------
 
-    The pushbutton. Always useful.
+    Tree for displaying directories or tree-based models.
 ###
 
 module.exports =
-class Apex.Form.Button extends Apex.Form.Widget
+class Apex.Form.TreeView extends Apex.Form.Widget
 
-  widgetType: 'button'
+  widgetType: 'treeview'
 
   # perform initialization logic, subclasses should override
   initialize: (params) ->
@@ -23,19 +23,19 @@ class Apex.Form.Button extends Apex.Form.Widget
 
   # constructs a version of the view for designer use (with tools, built-in focus logic)
   designer: ->
-    @button = $('<button/>')
+    @button = $('<button class="btn"/>')
     @button.text @title
     @button.addClass 'grow'
     @append @button
 
   # construct the regular view element onto @body
   view: ->
-    @button = $('<button/>')
+    @button = $('<button class="btn"/>')
     @button.text @title
     @button.addClass 'grow'
     @button.click => @emit 'click'
     @button.dblclick => @emit 'dblclick'
     @append @button
 
-Apex.widgetResolver.add 'button', Apex.Form.Button
-console.log('resolver added button')
+Apex.widgetResolver.add 'treeview', Apex.Form.TreeView
+console.log('resolver added treeview')

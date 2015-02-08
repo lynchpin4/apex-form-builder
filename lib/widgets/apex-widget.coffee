@@ -63,24 +63,39 @@ class Apex.Form.Widget extends View
 
   # concrete(ish) / class methods...
 
+  emit: (event, data) -> @emitter.emit event, data
+
   startEditing: ->
+    @selecter.hide()
     $(@).resizable()
     $(@).draggable()
     $(@).draggable( "option", "containment", @form.contents )
+
+  stopEditing: ->
+    @selecter.show()
+    $(@).resizable("destroy")
+    $(@).draggable("destroy")
+    console.log 'stopped editing '+@widgetType
 
   add: (form) ->
     @view()
 
     form.append @
     @form = form
-    selecter = $("<div class='widget-select-mask' style='z-index: 999999;' />")
-    @append selecter
+    @selecter = $("<div class='widget-select-mask' style='z-index: 999999;' />")
+    @append @selecter
     scope = @
-    selecter.click =>
-      console.log 'selecting: '
-      console.dir(@)
-      @form.selectWidget @
-      scope.startEditing()
+    @selecter.click =>
+      console.dir scope
+      if window.apexSelectedWidget != scope
+        if window.apexSelectedWidget? then window.apexSelectedWidget.stopEditing()
+        console.log 'selecting: '
+        console.dir(scope)
+        console.dir(@)
+
+        window.apexSelectedWidget = scope
+        @form.selectWidget scope
+        scope.startEditing()
     @emitter.emit 'added', @
 
   preview: (form) ->
