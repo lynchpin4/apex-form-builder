@@ -7,4 +7,6 @@ module.exports.TreeView = require './apex-tree-view'
 module.exports.ListView = require './apex-list-view'
 module.exports.Label = require './apex-label'
 module.exports.ButtonGroup = require './apex-button-group'
+module.exports.CheckBox = require './apex-checkbox'
+module.exports.LoadingSpinner = require './apex-loading-spinner'
 window.Apex?.Widgets = module.exports

@@ -165,8 +165,9 @@ class Apex.Form.Widget extends View
   # called when properties are updated
   update: ->
     @position @x, @y
-    @width @w unless @w is 0
-    @height @h unless @h is 0
+    if @w > 0 and @h > 0
+      @width @w unless @w is 0
+      @height @h unless @h is 0
 
   follow: (el) ->
     return # broken for now

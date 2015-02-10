@@ -59,7 +59,7 @@ BUILTIN_WIDGETS = {
   'buttongroup': {name: 'buttongroup', icon:'flaticon-ok6', tip: 'Simple and uniform button.', widget: Widgets.ButtonGroup},
   'input': {name: 'input', icon:'flaticon-textbox', tip: 'HTML5 Input', widget: Widgets.Input},
   'numeric': {icon:'flaticon-numbers8', tip: 'Numeric only input'}, # todo
-  'checkbox': {icon:'flaticon-check30', tip: 'Common checkbox'}, # todo
+  'checkbox': {name: 'checkbox', icon:'flaticon-check30', tip: 'Common checkbox', widget: Widgets.CheckBox}, # todo
   'radio': {icon:'flaticon-radio51', tip: 'Regular radio button'}, # todo
   'radiotext': {icon:'flaticon-radio32', tip: 'Radio button with a label'}, # todo
   'editor': {name: 'editor', icon:'flaticon-notes9', tip: 'Editor text input', widget: Widgets.TextEditor },
@@ -76,6 +76,7 @@ BUILTIN_WIDGETS = {
   'grid': {icon:'flaticon-show6', tip: 'Grid (Thumbnails)'}, # todo
   'table': {icon:'flaticon-table41', tip: 'Table'}, # todo
   'map': {icon:'flaticon-location35', tip: 'Leaflet Map'}, # todo
+  'loadingspinner': {name: 'loadingspinner', icon:'flaticon-location35', tip: 'Loading Spinner', widget: Widgets.LoadingSpinner}, # todo, change w/ actual icon
   #'layout1': {icon:'flaticon-design24'},
 }
 

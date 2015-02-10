@@ -73,8 +73,8 @@ class Apex.Form.PropertiesView extends View
           @div class: 'panel-body', =>
             @div class: 'jqevents-panel', outlet: 'jquerybox',
             @div class: 'jqevents-buttons', =>
-              @subview 'sup', new Apex.Widgets.Button({parent: @, x: 10, y: 10, title: 'Add'}).get(),
-              @subview 'sup', new Apex.Widgets.Button({parent: @, x: 70, y: 10, title: 'Preview'}).get(),
+              @subview 'sup', new Apex.Widgets.Button({parent: @, x: 10, y: 10, w: 50, title: 'Add'}).get(),
+              @subview 'sup', new Apex.Widgets.Button({parent: @, x: 70, y: 10, w: 80, title: 'Preview'}).get(),
 
   initialize: (params) ->
     if params.parent
