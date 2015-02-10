@@ -18,7 +18,9 @@ class Apex.Form.ListView extends Apex.Form.Widget
 
   # perform initialization logic, subclasses should override
   initialize: (params) ->
+    super params
     @title = 'Button'
+    @properties.push 'string:title'
     console.log 'Button initialized'
 
   # constructs a version of the view for designer use (with tools, built-in focus logic)

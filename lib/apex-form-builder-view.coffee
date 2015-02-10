@@ -1,13 +1,15 @@
 {Emitter} = require 'emissary'
 {CompositeDisposable, $, View} = require 'atom'
 path = require 'path'
+remote = require 'remote'
+Menu = remote.require 'menu'
 
 window.Apex ?= {}
 Apex.Form ?= {}
 
 Apex.Form.WidgetView = require './runtime/apex-form-view'
-Apex.Form.PropertiesView = require './apex-form-properties'
 Apex.Form.ToolboxView = require './apex-form-toolbox'
+Apex.Form.PropertiesView = require './apex-form-properties'
 
 ###
     Form Designer for Apex IDE / Atom.io
@@ -45,9 +47,11 @@ class Apex.Form.BuilderView extends View
       @div class:'apex-form-workspace', outlet: 'workspace'
 
   setParent: -> (@parentClass)
-  setState: -> (@state)
+  setState: (@state) ->
+    if @state?.form
+      @form.inflate @state.form
 
-  initialize: ->
+  initialize: (params) ->
     # Create root element
     @element.classList.add('apex-form-builder')
 
@@ -59,6 +63,18 @@ class Apex.Form.BuilderView extends View
     # redundant
     @form.setViewHost @
     @form.appendTo @workspace
+    #@form.mousedown((ev) =>
+    #  if ev.which == 2 then @showMenu()
+    #)
+
+    atom.commands.add '.apex-form-builder', 'apex-form-builder:delete-widget': => @deleteWidget()
+
+    atom.contextMenu.add {
+      '.apex-form-builder': [
+        {'label': 'Delete Widget', command: 'apex-form-builder:delete-widget' }
+        # {'type': 'seperator'}
+      ]
+    }
 
     @initActions()
 
@@ -67,23 +83,46 @@ class Apex.Form.BuilderView extends View
 
   #  @formProperties.hide()
 
+  deleteWidget: ->
+    index = @form.widgets.indexOf(window.apexSelectedWidget)
+    console.log index
+    if index != -1
+      widget = @form.widgets[index]
+      console.log 'deleting: '
+      console.dir widget
+      widget.hide()
+      @form.widgets.splice(index, 1)
+
+  showMenu: ->
+    template = [
+      {'label': 'Delete Widget', click: @deleteWidget.bind @ }
+    ]
+
+    menu = Menu.buildFromTemplate(template)
+    console.dir menu
+    menu.popup(atom.getCurrentWindow())
+
   initActions: ->
     # real quick hide properties view
     @formProperties.hide()
 
   # element requested highlight
   select: (el) ->
+    @selectWidget = el
     $('.apex-form-pane .selected').removeClass 'selected'
-    @highlight(el);
+    @highlight(el)
 
   highlight: (el) ->
     # Highlight a view / show and open property window when available.
     trueEl = $(el).closest('.selectable')
     trueEl.addClass 'selected'
-    @formProperties.show trueEl
+    @formProperties.show @selectWidget
 
   # Returns an object that can be retrieved when package is activated
   serialize: ->
+    @obj = {}
+    @obj.form = JSON.parse @form.JSON()
+    @obj
 
   # Tear down any state and detach
   destroy: ->

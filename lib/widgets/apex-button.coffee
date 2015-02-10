@@ -18,8 +18,14 @@ class Apex.Form.Button extends Apex.Form.Widget
 
   # perform initialization logic, subclasses should override
   initialize: (params) ->
-    @title = 'Button'
+    super params
+    @title = @title or 'Button'
     console.log 'Button initialized'
+    @properties.push 'string:title'
+
+  update: ->
+    super
+    if @button then @button.text @title
 
   # constructs a version of the view for designer use (with tools, built-in focus logic)
   designer: ->

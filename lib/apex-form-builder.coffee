@@ -44,6 +44,8 @@ module.exports = Apex.Form.Builder =
     if not Apex.formBuilder then @firstRun()
     Apex.formBuilder = @
 
+    if @state.apexFormBuilderViewState?.form then @createForm()
+
     # Create the first 1 anyways
     #@createForm()
 
@@ -56,8 +58,8 @@ module.exports = Apex.Form.Builder =
 
   createForm: ->
     @apexFormBuilderView = new Apex.Form.BuilderView()
-    @apexFormBuilderView.setState @state.apexFormBuilderViewState
     @apexFormBuilderView.setParent Apex.Form.Builder
+    @apexFormBuilderView.setState @state.apexFormBuilderViewState
 
     atom.workspace.activePane.activateItem @apexFormBuilderView
 

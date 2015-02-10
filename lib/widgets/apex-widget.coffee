@@ -48,6 +48,8 @@ class Apex.Form.Widget extends View
   widgetType: 'widget'
   x: 0
   y: 0
+  w: 0
+  h: 0
 
   emitter: new Emitter
 
@@ -56,35 +58,79 @@ class Apex.Form.Widget extends View
 
   # perform initialization logic, subclasses should override
   initialize: (params) ->
-    console.log 'widget initialized'
     @_followTimeout = -1
     @x = 0
     @y = 0
+    @params = params or {}
+    @properties = ['widgetType', 'int:x', 'int:y', 'int:w', 'int:h']
+
+    @_updateProps()
 
   # concrete(ish) / class methods...
+
+  _updateProps: ->
+    for prop in @properties
+      if prop.indexOf(":") != -1
+        propType = prop.split(":")[0]
+        propName = prop.split(":")[1]
+
+        if @params.hasOwnProperty(propName)
+          this[propName] = @params[propName]
 
   emit: (event, data) -> @emitter.emit event, data
 
   startEditing: ->
-    @selecter.hide()
-    $(@).resizable()
-    $(@).draggable()
+    @selecter.show()
+
+    @x = parseInt @css('left').replace('px', '')
+    @y = parseInt @css('top').replace('px', '')
+    @w = parseInt @css('width').replace('px', '')
+    @h = parseInt @css('height').replace('px', '')
+
+    $(@).resizable(
+      handles: 'n, e, s, w',
+      stop: =>
+        @w = parseInt @width()
+        @h = parseInt @height()
+    )
+    $(@).draggable(
+      grid: false,
+      stop: =>
+        @x = parseInt @css('left').replace('px', '')
+        @y = parseInt @css('top').replace('px', '')
+    )
     $(@).draggable( "option", "containment", @form.contents )
 
   stopEditing: ->
-    @selecter.show()
+    #@selecter.hide()
+
     $(@).resizable("destroy")
     $(@).draggable("destroy")
     console.log 'stopped editing '+@widgetType
 
+  get: ->
+    @_updateProps()
+    view = @view()
+    @update()
+    view
+
   add: (form) ->
     @view()
 
-    form.append @
+    form.contents.append @
     @form = form
+
     @selecter = $("<div class='widget-select-mask' style='z-index: 999999;' />")
     @append @selecter
     scope = @
+
+    @x = parseInt @css('left').replace('px', '')
+    @y = parseInt @css('top').replace('px', '')
+    @w = parseInt @css('width').replace('px', '')
+    @h = parseInt @css('height').replace('px', '')
+
+    #@selectable()
+
     @selecter.click =>
       console.dir scope
       if window.apexSelectedWidget != scope
@@ -96,14 +142,31 @@ class Apex.Form.Widget extends View
         window.apexSelectedWidget = scope
         @form.selectWidget scope
         scope.startEditing()
+
     @emitter.emit 'added', @
 
   preview: (form) ->
     @addClass 'preview'
     if @designer then @designer()
-    form.append @
+    form.contents.append @
     @css
       opacity: 0.5
+
+  select: ->
+    if window.apexSelectedWidget != @
+      if window.apexSelectedWidget? then window.apexSelectedWidget.stopEditing()
+      console.log 'selecting: '
+      console.dir(@)
+
+      window.apexSelectedWidget = @
+      @form.selectWidget @
+      @startEditing()
+
+  # called when properties are updated
+  update: ->
+    @position @x, @y
+    @width @w unless @w is 0
+    @height @h unless @h is 0
 
   follow: (el) ->
     return # broken for now

@@ -14,11 +14,13 @@ Apex.Form ?= {}
 module.exports =
 class Apex.Form.ButtonGroup extends Apex.Form.Widget
 
-  widgetType: 'btngroup'
+  widgetType: 'buttongroup'
 
   # perform initialization logic, subclasses should override
   initialize: (params) ->
+    super params
     @title = 'Button Group'
+    @properties.push 'string:title'
     console.log @title + ' initialized'
 
   # constructs a version of the view for designer use (with tools, built-in focus logic)

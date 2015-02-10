@@ -18,8 +18,14 @@ class Apex.Form.Input extends Apex.Form.Widget
 
   # perform initialization logic, subclasses should override
   initialize: (params) ->
+    super params
     @value = 'Textbox'
+    @properties.push 'string:value'
     console.log 'Input Textbox initialized'
+
+  update: ->
+    super
+    if @textbox then @textbox.val @value
 
   # constructs a version of the view for designer use (with tools, built-in focus logic)
   designer: ->

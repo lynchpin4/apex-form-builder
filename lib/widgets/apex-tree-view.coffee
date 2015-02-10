@@ -18,6 +18,7 @@ class Apex.Form.TreeView extends Apex.Form.Widget
 
   # perform initialization logic, subclasses should override
   initialize: (params) ->
+    super params
     @title = 'Button'
     console.log 'Button initialized'
 

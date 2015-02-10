@@ -18,24 +18,30 @@ class Apex.Form.Label extends Apex.Form.Widget
 
   # perform initialization logic, subclasses should override
   initialize: (params) ->
-    @title = 'Button'
-    console.log 'Button initialized'
+    super params
+    @title = 'Label'
+    console.log 'label initialized'
+    @properties.push 'string:title'
+
+  update: ->
+    super
+    if @label then @label.text @title
 
   # constructs a version of the view for designer use (with tools, built-in focus logic)
   designer: ->
-    @button = $('<button class="btn"/>')
-    @button.text @title
-    @button.addClass 'grow'
-    @append @button
+    @label = $('<label/>')
+    @label.text @title
+    @label.addClass 'grow'
+    @append @label
 
   # construct the regular view element onto @body
   view: ->
-    @button = $('<button class="btn"/>')
-    @button.text @title
-    @button.addClass 'grow'
-    @button.click => @emit 'click'
-    @button.dblclick => @emit 'dblclick'
-    @append @button
+    @label = $('<label />')
+    @label.text @title
+    @label.addClass 'grow'
+    @label.click => @emit 'click'
+    @label.dblclick => @emit 'dblclick'
+    @append @label
 
 Apex.widgetResolver.add 'label', Apex.Form.Label
 console.log('resolver added label')
