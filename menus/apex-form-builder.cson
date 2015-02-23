@@ -7,7 +7,19 @@
         {
           'label': 'New Form'
           'command': 'apex-form-builder:create'
-        }
+        },
+        {
+          'label': 'Open Form'
+          'command': 'apex-form-builder:open'
+        },
+        {
+          'label': 'Export Spacepen'
+          'command': 'apex-form-builder:export-spacepen'
+        },
+        {
+          'label': 'Test Form'
+          'command': 'apex-form-builder:test'
+        },
       ]
     ]
   }

@@ -15,7 +15,7 @@ class Apex.Form.PropertiesSegment extends View
     @div class: 'properties-row', =>
       @div class: 'properties-title', =>
         @label outlet: 'label'
-      @div class: 'properties-value', outlet: 'contents'
+      @div class: 'properties-value native-key-bindings', outlet: 'contents'
 
   initialize: (params) ->
     if not params then return

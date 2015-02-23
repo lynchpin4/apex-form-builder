@@ -3,6 +3,7 @@
 path = require 'path'
 remote = require 'remote'
 Menu = remote.require 'menu'
+dialog = remote.require "dialog"
 
 window.Apex ?= {}
 Apex.Form ?= {}
@@ -124,6 +125,36 @@ class Apex.Form.BuilderView extends View
     @obj.form = JSON.parse @form.JSON()
     @obj
 
+  shouldPromptToSave: ->
+    false
+
+  save: (path) ->
+    if @path
+      if @path.indexOf(".") == -1 then @path = @path + '.form'
+      fs.writeFileSync @path, JSON.stringify @serialize()
+      atom.notifications.addSuccess 'Saved Form At '+@path
+      return true
+    else
+      if path
+        @path = path
+        @save()
+      else
+        @saveAs()
+    #else
+    #  @path = dialog.showSaveDialog({properties:['openFile']})
+    #  if @path and @path.length > 2
+    #    @save()
+
+  saveAs: (path) ->
+    if not path
+      @path = dialog.showSaveDialog({properties:['openFile']})
+    else
+      @path = path
+    if @path and @path.length > 2
+      return @save(@path)
+    else
+      return false
+
   # Tear down any state and detach
   destroy: ->
     if @element then @element.remove()
@@ -134,7 +165,8 @@ class Apex.Form.BuilderView extends View
   getClass:     -> @parentClass
   getViewClass: -> Apex.Form.BuilderView
   getView:      -> @
-  getPath:      -> path.join __dirname, 'examples', 'test.json'
+  getPath:      -> @path
+  setPath: (@path) ->
 
   setTitle: (@title) ->
   getTitle: ->

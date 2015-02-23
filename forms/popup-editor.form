@@ -1,0 +1,1 @@
+{"form":{"name":"PopupScriptEditor","title":"Script Editor","width":438,"height":319,"widgets":[{"widgetType":"label","x":7,"y":5,"w":32,"h":23,"title":"Script:"},{"widgetType":"editor","x":7,"y":24,"w":400,"h":194},{"widgetType":"button","x":353,"y":228,"w":56,"h":29,"title":"Save"},{"widgetType":"button","x":285,"y":228,"w":60,"h":29,"title":"Cancel"}]}}

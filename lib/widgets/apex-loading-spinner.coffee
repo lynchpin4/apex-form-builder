@@ -14,7 +14,7 @@ Apex.Form ?= {}
 module.exports =
 class Apex.Form.LoadingSpinner extends Apex.Form.Widget
 
-  widgetType: 'spinner'
+  widgetType: 'loadingspinner'
   size: 'large'
 
   # perform initialization logic, subclasses should override

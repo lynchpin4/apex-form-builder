@@ -1,0 +1,1 @@
+{"form":{"title":"Untitled Form","width":438,"height":250,"widgets":[{"widgetType":"input","x":7,"y":8,"w":126,"h":21,"value":"Textbox"},{"widgetType":"button","x":138,"y":4,"w":52,"h":18,"title":"Button"},{"widgetType":"input","x":192,"y":103,"w":126,"h":21,"value":"Textbox"}]}}

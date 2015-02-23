@@ -1,0 +1,1 @@
+{"form":{"name":"pos","title":"Untitled Form","width":558,"height":250,"widgets":[{"widgetType":"button","x":7,"y":9,"w":52,"h":22,"title":"Button"},{"widgetType":"input","x":63,"y":9,"w":126,"h":23,"value":"Textbox"},{"widgetType":"label","x":196,"y":5,"w":182,"h":22,"title":"Science be damned.. It's good for the economy"},{"widgetType":"editor","x":9,"y":42,"w":521,"h":141}]}}

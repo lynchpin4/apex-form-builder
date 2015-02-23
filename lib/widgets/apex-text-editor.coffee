@@ -35,7 +35,7 @@ class Apex.Form.TextEditor extends Apex.Form.Widget
     @editor = $('<atom-text-editor />')
     @editor.text @title
     @editor.addClass 'grow'
-    @editor.css 'overflow', 'scroll'
+    @editor.css 'overflow', 'overlay'
     #@editor.click => @emit 'click'
     #@editor.dblclick => @emit 'dblclick'
     @append @editor

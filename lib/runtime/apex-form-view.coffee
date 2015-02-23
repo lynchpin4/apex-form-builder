@@ -22,6 +22,8 @@ class Apex.Form.FormView extends View
   @properties = []
   @windowTitle = 'Untitled Form'
 
+  @name = ''
+
   @content: ->
     @tag 'atom-panel', class: 'form-widget selectable', =>
       @div class: 'inset-panel', =>
@@ -43,7 +45,11 @@ class Apex.Form.FormView extends View
     @isRuntime = false # not implemented.
 
     Apex.apexCurrentDevForm = @
-    @properties = ['string:windowTitle']
+    @properties = ['string:name', 'string:windowTitle']
+
+    # Starting runtime generator
+    if params.isRuntime then @isDesigner = false
+    if params.isRuntime then @isRuntime = true
 
     # Currently, we always init as designer (though as indicated above this could change)
     @initDesigner() unless not @isDesigner
@@ -208,6 +214,7 @@ class Apex.Form.FormView extends View
     @title.text obj.title
     $(@).width obj.width
     $(@).height obj.height
+    if obj.name then @name = obj.name
     for w in obj.widgets
       type = Apex.widgetResolver.resolve(w.widgetType)
       widget = new type()
@@ -222,12 +229,13 @@ class Apex.Form.FormView extends View
     @w = parseInt @css('width').replace('px', '')
     @h = parseInt @css('height').replace('px', '')
 
-    obj = {title: @windowTitle, width: @w, height: @h, widgets: [] }
+    obj = {name: @name, title: @windowTitle, width: @w, height: @h, widgets: [] }
     for widget in @widgets
       widgetObject = {}
       for prop in widget.properties
         name = prop
         if prop.indexOf(":") != -1 then name = prop.split(':')[1]
+        if name is 'name' and widget.name.length == 0 then continue
         widgetObject[name] = widget[name]
       obj.widgets.push widgetObject
     JSON.stringify obj

@@ -46,6 +46,7 @@ module.exports =
 class Apex.Form.Widget extends View
 
   widgetType: 'widget'
+  name: ''
   x: 0
   y: 0
   w: 0
@@ -62,7 +63,7 @@ class Apex.Form.Widget extends View
     @x = 0
     @y = 0
     @params = params or {}
-    @properties = ['widgetType', 'int:x', 'int:y', 'int:w', 'int:h']
+    @properties = ['widgetType', 'string:name', 'int:x', 'int:y', 'int:w', 'int:h']
 
     @_updateProps()
 
