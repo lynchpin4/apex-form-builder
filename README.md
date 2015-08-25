@@ -1,5 +1,5 @@
 # apex-form-builder package
 
-A short description of your package.
+Dynamic Form Builder for spacepen views. 
 
-![A screenshot of your package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+![Dynamic Spacepen Form Builder](http://i.imgur.com/hn8BiTQ.png)
