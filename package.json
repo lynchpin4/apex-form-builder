@@ -3,7 +3,7 @@
   "main": "./lib/apex-form-builder",
   "version": "0.0.0",
   "description": "A short description of your package",
-  "repository": "https://github.com/atom/apex-form-builder",
+  "repository": "https://github.com/gstack/apex-form-builder",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
