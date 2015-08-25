@@ -1,5 +1,7 @@
 {Emitter} = require 'emissary'
-{CompositeDisposable, $, View} = require 'atom'
+{CompositeDisposable} = require 'atom'
+$ = require 'jquery'
+{View} = require 'atom-space-pen-views'
 path = require 'path'
 jq = require('../deps/jquery-ui')($)
 window.jqUi = jq;
@@ -25,7 +27,7 @@ class Apex.Form.FormView extends View
   @name = ''
 
   @content: ->
-    @tag 'atom-panel', class: 'form-widget selectable', =>
+    @div class: 'form-widget selectable', =>
       @div class: 'inset-panel', =>
         @div class: 'panel-heading', outlet: 'header', =>
           @span '', outlet: 'title'

@@ -1,4 +1,7 @@
-{CompositeDisposable, $, View} = require 'atom'
+{Emitter} = require 'emissary'
+{CompositeDisposable} = require 'atom'
+$ = require 'jquery'
+{View} = require 'atom-space-pen-views'
 path = require 'path'
 
 window.Apex ?= {}

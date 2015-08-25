@@ -1,4 +1,7 @@
-{CompositeDisposable, $, View} = require 'atom'
+{Emitter} = require 'emissary'
+{CompositeDisposable} = require 'atom'
+$ = require 'jquery'
+{View} = require 'atom-space-pen-views'
 path = require 'path'
 
 window.Apex ?= {}
@@ -36,7 +39,6 @@ class Apex.Form.CheckBox extends Apex.Form.Widget
     @checkbox.addClass 'grow'
     @append @checkbox
     @update()
-    @
 
   # construct the regular view element onto @body
   view: ->

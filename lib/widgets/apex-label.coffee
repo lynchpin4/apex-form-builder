@@ -1,4 +1,7 @@
-{CompositeDisposable, $, View} = require 'atom'
+{Emitter} = require 'emissary'
+{CompositeDisposable} = require 'atom'
+$ = require 'jquery'
+{View} = require 'atom-space-pen-views'
 path = require 'path'
 
 window.Apex ?= {}
@@ -31,6 +34,7 @@ class Apex.Form.Label extends Apex.Form.Widget
   designer: ->
     @label = $('<label/>')
     @label.text @title
+    @label.addClass 'label-text-widget'
     @label.addClass 'grow'
     @append @label
 
@@ -39,6 +43,7 @@ class Apex.Form.Label extends Apex.Form.Widget
     @label = $('<label />')
     @label.text @title
     @label.addClass 'grow'
+    @label.addClass 'label-text-widget'
     @label.click => @emit 'click'
     @label.dblclick => @emit 'dblclick'
     @append @label

@@ -1,5 +1,7 @@
 {Emitter} = require 'emissary'
-{CompositeDisposable, $, View} = require 'atom'
+{CompositeDisposable} = require 'atom'
+$ = require 'jquery'
+{View} = require 'atom-space-pen-views'
 path = require 'path'
 remote = require 'remote'
 Menu = remote.require 'menu'
@@ -41,7 +43,7 @@ class Apex.Form.BuilderView extends View
   ###
 
   @content: ->
-    @div class:'apex-form-pane', =>
+    @div class:'apex-form-pane pane-item', =>
       @div class:'apex-form-toolbox', outlet: 'toolboxContainer', =>
         @subview 'toolbox', new Apex.Form.ToolboxView({parent: @})
         @subview 'formProperties', new Apex.Form.PropertiesView({parent: @})

@@ -1,5 +1,8 @@
 {Emitter} = require 'emissary'
-{CompositeDisposable, $, View} = require 'atom'
+{CompositeDisposable} = require 'atom'
+$ = require 'jquery'
+{View} = require 'atom-space-pen-views'
+{TextEditorView} = require 'atom-space-pen-views'
 path = require 'path'
 
 window.Apex ?= {}
@@ -47,7 +50,9 @@ spacepenTemplate = (form, opts={atom: true}) ->
 
   SPACEPEN_FORM_TEMPLATE = """
   {Emitter} = require 'emissary'
-  {CompositeDisposable, $, View} = require 'atom'
+  {CompositeDisposable} = require 'atom'
+  $ = window.jQuery or require 'jquery'
+  {View} = require 'atom-space-pen-views'
   path = require 'path'
   # <includes> - tag for inserting other optional requirements
 
@@ -77,8 +82,8 @@ spacepenTemplate = (form, opts={atom: true}) ->
 
     # modal form-widget-floating aren't neccessary but add cool decoration for floating windows
     @content: ->
-      @tag 'atom-panel', class: 'form-widget apex-form-widget modal form-widget-floating form-#{form.name}', =>
-        @raw '<style>atom-panel.form-#{form.name} { width: #{form.width}px; height: #{form.height}px; }</style>'
+      @div class: 'atom-panel form-widget apex-form-widget modal form-widget-floating form-#{form.name}', =>
+        @raw '<style>.atom-panel.form-#{form.name} { width: #{form.width}px; height: #{form.height}px; }</style>'
         @div class: 'inset-panel', =>
           @div class: 'panel-heading', outlet: 'header', =>
             @span #{stringify form.title}, outlet: 'title'

@@ -6,11 +6,11 @@
       'submenu': [
         {
           'label': 'New Form'
-          'command': 'apex-form-builder:create'
+          'command': 'apex-form-builder:create-form'
         },
         {
           'label': 'Open Form'
-          'command': 'apex-form-builder:open'
+          'command': 'apex-form-builder:open-form'
         },
         {
           'label': 'Export Spacepen'
@@ -18,7 +18,7 @@
         },
         {
           'label': 'Test Form'
-          'command': 'apex-form-builder:test'
+          'command': 'apex-form-builder:test-form'
         },
       ]
     ]

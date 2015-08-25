@@ -1,4 +1,7 @@
-{CompositeDisposable, $, View} = require 'atom'
+{Emitter} = require 'emissary'
+{CompositeDisposable} = require 'atom'
+$ = require 'jquery'
+{View} = require 'atom-space-pen-views'
 path = require 'path'
 
 window.Apex ?= {}
@@ -38,7 +41,6 @@ class Apex.Form.LoadingSpinner extends Apex.Form.Widget
     @spinner.addClass 'loading-spinner-'+@size
     @append @spinner
     @update()
-    @
 
   # construct the regular view element onto @body
   view: ->

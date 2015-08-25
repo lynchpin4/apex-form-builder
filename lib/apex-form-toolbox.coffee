@@ -1,5 +1,7 @@
 {Emitter} = require 'emissary'
-{CompositeDisposable, $, View} = require 'atom'
+{CompositeDisposable} = require 'atom'
+$ = require 'jquery'
+{View} = require 'space-pen'
 path = require 'path'
 
 Widgets = require './widgets/widgets'
@@ -85,7 +87,7 @@ class Apex.Form.ToolboxView extends View
   Emitter.includeInto @
 
   @content: ->
-    @tag 'atom-panel', class: 'toolbox-panel', outlet: 'toolboxPanel', =>
+    @div class: 'atom-panel toolbox-panel', outlet: 'toolboxPanel', =>
       @div class: 'inset-panel', =>
         @div class: 'panel-heading', =>
           @span 'Toolbox'

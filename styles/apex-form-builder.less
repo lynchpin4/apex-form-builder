@@ -26,7 +26,7 @@
 
 .jqevents-buttons { padding: 10px; }
 
-atom-panel.ui-resizable .inset-panel
+.atom-panel.ui-resizable .inset-panel
 {
   top: 0px!important;
   left: 0px!important;
@@ -35,7 +35,7 @@ atom-panel.ui-resizable .inset-panel
   position: absolute!important;
 }
 
-atom-panel.form-widget-floating {
+.atom-panel.form-widget-floating {
   padding: 10px!important;
   .inset-panel {
     top: 10px!important;
@@ -55,6 +55,13 @@ atom-panel.form-widget-floating {
   left: 0px!important;
   right: 0px!important;
   bottom: 0px!important;
+  min-height: 100px;
+  min-width: 100px;
+}
+
+.apex-form-widget .panel-body
+{
+  background: @base-background-color;
 }
 
 .apex-widget.selectable.selected
@@ -70,9 +77,15 @@ atom-panel.form-widget-floating {
   display: block;
 }
 
-atom-panel.form-widget .inset-panel
+.atom-panel.form-widget .inset-panel
 {
   position: relative;
+}
+
+.inset-panel
+{
+  width: 100%;
+  height: 100%;
 }
 
 .apex-widget
@@ -96,7 +109,13 @@ atom-panel.form-widget .inset-panel
   color: #fff;
 }
 
-atom-panel.form-widget { min-width: 100px; min-height: 100px; }
+.label-text-widget
+{
+  color: @text-color;
+}
+
+/* idk about this */
+.atom-panel.form-widget { min-width: 20px; min-height: 20px; }
 
 .toolbox-panel {
   height: 100%;
@@ -113,9 +132,10 @@ atom-panel.form-widget { min-width: 100px; min-height: 100px; }
     width: 32px;
     height: 32px;
     transition: color 1s ease-in!important;
+    color: @text-color;
 
     :hover {
-      color: #228DFF!important;
+      color: @text-color-highlight!important;
       -webkit-animation: neon2 1.5s ease-in-out infinite alternate;
       -moz-animation: neon2 1.5s ease-in-out infinite alternate;
       animation: neon2 1.5s ease-in-out infinite alternate;
@@ -151,7 +171,7 @@ atom-panel.form-widget { min-width: 100px; min-height: 100px; }
   margin-left: 15px;
 }
 
-atom-panel
+.atom-panel
 {
   .close-icon {
     right: 10px;
@@ -161,6 +181,7 @@ atom-panel
     z-index: 3;
     text-align: right;
     line-height: 26px;
+    color: @text-color-subtle;
   }
   .close-icon {
     position: absolute;

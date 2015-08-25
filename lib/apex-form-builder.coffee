@@ -9,7 +9,10 @@ builder = require './packager/spacepen-form'
 coffee = require 'coffee-script'
 fs = require 'fs'
 
-{CompositeDisposable, $, View} = require 'atom'
+{Emitter} = require 'emissary'
+{CompositeDisposable} = require 'atom'
+$ = require 'jquery'
+{View} = require 'atom-space-pen-views'
 
 # Take advantage of Coffeescript's namespacing shortcuts to keep the Apex.Form
 # more organized as a whole.
@@ -47,9 +50,11 @@ module.exports = Apex.Form.Builder =
     @state = state
 
     # Register command that creates a new form view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'apex-form-builder:create': => @createForm()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'apex-form-builder:open': => @openForm()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'apex-form-builder:test': => @testForm()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'apex-form-builder:create-form': =>
+      @state.apexFormBuilderViewState = null
+      @createForm()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'apex-form-builder:open-form': => @openForm()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'apex-form-builder:test-form': => @testForm()
     @subscriptions.add atom.commands.add 'atom-workspace', 'apex-form-builder:export-spacepen': => @buildSpacepenForm()
 
     # register the form builder so we can see it (from window)
@@ -75,8 +80,11 @@ module.exports = Apex.Form.Builder =
     @apexFormBuilderView = new Apex.Form.BuilderView()
     @apexFormBuilderView.setParent Apex.Form.Builder
     @apexFormBuilderView.setState obj
+    
+    window.apexFormBuilderView = @apexFormBuilderView
 
-    atom.workspace.activePane.activateItem @apexFormBuilderView
+    #atom.workspace.activePane.activateItem @apexFormBuilderView
+    atom.workspace.paneContainer.activePane.addItem(@apexFormBuilderView)
 
     @view = @apexFormBuilderView # shorthand
     @views.push @view
@@ -87,8 +95,15 @@ module.exports = Apex.Form.Builder =
       build = new Apex.Form.SpacePenBuilder({ form: klass.form.JSON() })
       @output = build.build()
       @js = coffee.compile @output
+      
+      console.log @js
 
-      vm.runInThisContext(@js)
+      try
+        vm.runInThisContext(@js)
+      catch ex
+        atom.notifications.addWarning("Exception running form in window: "+ex)
+        console.dir(ex)
+        
       name = klass.form.name
       if not name then name = 'Default'
       console.log "Form #{name} now available as window.Form[#{JSON.stringify name}] for testing. Code: Apex.formBuilder.js // Apex.formBuilder.output"
@@ -103,8 +118,15 @@ module.exports = Apex.Form.Builder =
       build = new Apex.Form.SpacePenBuilder({ form: klass.form.JSON() })
       @output = build.build()
       @js = coffee.compile @output
+      
+      console.log @js
 
-      vm.runInThisContext(@js)
+      try
+        vm.runInThisContext(@js)
+      catch ex
+        atom.notifications.addWarning("Exception running form in window: "+ex)
+        console.dir(ex)
+        
       name = klass.form.name
       if not name then name = 'Default'
       console.log "Form #{name} now available as window.Form[#{JSON.stringify name}] for testing. Code: Apex.formBuilder.js // Apex.formBuilder.output"
@@ -134,11 +156,15 @@ module.exports = Apex.Form.Builder =
     apexFormBuilderViewState: @apexFormBuilderView.serialize()
 
   createForm: ->
+    console.log 'creating builder view'
     @apexFormBuilderView = new Apex.Form.BuilderView()
     @apexFormBuilderView.setParent Apex.Form.Builder
     @apexFormBuilderView.setState @state.apexFormBuilderViewState
+    
+    window.apexFormBuilderView = @apexFormBuilderView
 
-    atom.workspace.activePane.activateItem @apexFormBuilderView
+    #atom.workspace.activePane.activateItem @apexFormBuilderView
+    atom.workspace.paneContainer.activePane.addItem(@apexFormBuilderView)
 
     @view = @apexFormBuilderView # shorthand
     @views.push @view
