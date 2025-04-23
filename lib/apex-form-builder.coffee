@@ -80,7 +80,7 @@ module.exports = Apex.Form.Builder =
     @apexFormBuilderView = new Apex.Form.BuilderView()
     @apexFormBuilderView.setParent Apex.Form.Builder
     @apexFormBuilderView.setState obj
-    
+
     window.apexFormBuilderView = @apexFormBuilderView
 
     #atom.workspace.activePane.activateItem @apexFormBuilderView
@@ -95,7 +95,7 @@ module.exports = Apex.Form.Builder =
       build = new Apex.Form.SpacePenBuilder({ form: klass.form.JSON() })
       @output = build.build()
       @js = coffee.compile @output
-      
+
       console.log @js
 
       try
@@ -103,7 +103,7 @@ module.exports = Apex.Form.Builder =
       catch ex
         atom.notifications.addWarning("Exception running form in window: "+ex)
         console.dir(ex)
-        
+
       name = klass.form.name
       if not name then name = 'Default'
       console.log "Form #{name} now available as window.Form[#{JSON.stringify name}] for testing. Code: Apex.formBuilder.js // Apex.formBuilder.output"
@@ -118,7 +118,7 @@ module.exports = Apex.Form.Builder =
       build = new Apex.Form.SpacePenBuilder({ form: klass.form.JSON() })
       @output = build.build()
       @js = coffee.compile @output
-      
+
       console.log @js
 
       try
@@ -126,7 +126,7 @@ module.exports = Apex.Form.Builder =
       catch ex
         atom.notifications.addWarning("Exception running form in window: "+ex)
         console.dir(ex)
-        
+
       name = klass.form.name
       if not name then name = 'Default'
       console.log "Form #{name} now available as window.Form[#{JSON.stringify name}] for testing. Code: Apex.formBuilder.js // Apex.formBuilder.output"
@@ -160,7 +160,7 @@ module.exports = Apex.Form.Builder =
     @apexFormBuilderView = new Apex.Form.BuilderView()
     @apexFormBuilderView.setParent Apex.Form.Builder
     @apexFormBuilderView.setState @state.apexFormBuilderViewState
-    
+
     window.apexFormBuilderView = @apexFormBuilderView
 
     #atom.workspace.activePane.activateItem @apexFormBuilderView

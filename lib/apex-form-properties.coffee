@@ -58,11 +58,11 @@ class Apex.Form.PropertiesView extends View
 
   @content: ->
     @div class: 'tool-window', =>
-      @tag 'atom-panel', class: 'toolbox-panel', =>
-        @div class: 'inset-panel', =>
-          @div class: 'panel-heading', =>
-            @span 'Bindings / Delegates'
-          @div class: 'panel-body padded', outlet: 'delegates'
+#      @tag 'atom-panel', class: 'toolbox-panel', =>
+#        @div class: 'inset-panel', =>
+#          @div class: 'panel-heading', =>
+#            @span 'Bindings / Delegates'
+#          @div class: 'panel-body panel-delegates padded', outlet: 'delegates'
       @tag 'atom-panel', class: 'toolbox-panel', =>
         @div class: 'inset-panel', =>
           @div class: 'panel-heading', =>

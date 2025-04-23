@@ -1,6 +1,10 @@
 {Emitter} = require 'emissary'
 {CompositeDisposable} = require 'atom'
 $ = require 'jquery'
+console.dir($)
+window.$ = $
+window.jQuery = $
+
 {View} = require 'atom-space-pen-views'
 path = require 'path'
 jq = require('../deps/jquery-ui')($)
@@ -83,7 +87,7 @@ class Apex.Form.FormView extends View
       scope.selectWidget(this)
     #$('.apex-widget.selectable').delegate("click", @selectFn)
     #$('.apex-widget.selectable .widget-select-mask').delegate("click", @selectFn)
-    @contents.selectable(
+    jq(@contents).selectable(
       unselected: (event, ui) =>
         if ui.unselected
           if ui.unselected.spacePenView?
