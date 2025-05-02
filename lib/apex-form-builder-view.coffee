@@ -5,7 +5,9 @@ $ = require 'jquery'
 path = require 'path'
 remote = require 'remote'
 Menu = remote.require 'menu'
-dialog = remote.require "dialog"
+{ dialog } = remote
+
+window.Apex.dialog = dialog
 
 window.Apex ?= {}
 Apex.Form ?= {}

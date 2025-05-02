@@ -1,6 +1,6 @@
 remote = require 'remote'
 Menu = remote.require 'menu'
-dialog = remote.require "dialog"
+{ dialog } = remote
 path = require 'path'
 vm = require 'vm'
 
@@ -71,7 +71,7 @@ module.exports = Apex.Form.Builder =
   openForm: ->
     obj = { }
     try
-      p = dialog.showOpenDialog({properties:['openFile']})
+      p = dialog.showOpenDialogSync({properties:['openFile']})
       obj = JSON.parse(fs.readFileSync(p.toString()).toString())
     catch ex
       atom.notifications.addError(ex.message)
@@ -131,7 +131,7 @@ module.exports = Apex.Form.Builder =
       if not name then name = 'Default'
       console.log "Form #{name} now available as window.Form[#{JSON.stringify name}] for testing. Code: Apex.formBuilder.js // Apex.formBuilder.output"
 
-      p = dialog.showSaveDialog({properties:['openFile']})
+      p = dialog.showSaveDialogSync({properties:['openFile']})
       @path = path.join(path.dirname(p), path.basename(p))
       if @path and @path.length > 2
         fs.writeFileSync @path + '.coffee', @output
